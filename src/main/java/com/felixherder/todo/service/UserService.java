@@ -22,4 +22,10 @@ public class UserService {
         user.getTodoList().add(todo);
         userRepo.save(user);
     }
+
+    public Todo getTodoById(int id, User user){
+        Todo todo = user.getTodoList().stream().filter(t-> t.getId() == id).findFirst()
+                .orElseThrow(() -> new RuntimeException("Todo with " + id + " not found"));
+        return todo;
+    }
 }

@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("/")
     public String getTodos(Model model, Authentication authentication){
         String username = authentication.getName();
-        model.addAttribute("todos", myUserDetailsService.userRepo.findByUsername(username));
+        model.addAttribute("todos", myUserDetailsService.userRepo.findByUsername(username).getTodoList());
 
         return "todo-list";
     }

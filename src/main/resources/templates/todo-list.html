@@ -1,18 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Todos</title>
 </head>
 <body>
     <h2>List of todos for user: </h2>
-    <table>
+    <table border="1">
         <tr>
             <th>title</th>
             <th>content</th>
+            <th>update</th>
+            <th>delete</th>
         </tr>
-        <tr>
-            <td></td>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.content}"></td>
+            <td>
+                <a th:href="'/todo/update?id=' + ${todo.id}">Update</a>
+            </td>
+            <td>
+                <form action="/todo/delete" method="post">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
         </tr>
     </table>
 

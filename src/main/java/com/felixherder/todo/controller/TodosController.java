@@ -11,10 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import com.felixherder.todo.model.User;
 
 @RequiredArgsConstructor
@@ -35,6 +33,27 @@ public class TodosController {
         User user = myUserDetailsService.userRepo.findByUsername(username);
         this.userService.updateUser(todoCreateDto, user);
 
-       return "todo-create-form";
+       return "redirect:todo-list";
+    }
+
+    @GetMapping("/todo/update")
+    public String todoUpdateForm(@RequestParam int id, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User user = myUserDetailsService.userRepo.findByUsername(username);
+        Todo todo = this.userService.getTodoById(id,user);
+        model.addAttribute("todo", todo);
+
+        return "todo-update-form";
+    }
+
+    // TODO finish post update todo endpoint
+    @PostMapping("/todo/update")
+    public String todoUpdate(@RequestParam int id, Model model, Authentication authentication) {
+        String username = authentication.getName();
+        User user = myUserDetailsService.userRepo.findByUsername(username);
+        Todo todo = this.userService.getTodoById(id,user);
+        model.addAttribute("todo", todo);
+
+        return "todo-update-form";
     }
 }
