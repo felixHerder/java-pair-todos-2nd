@@ -4,6 +4,7 @@ package com.felixherder.todo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,6 +17,6 @@ public class User {
     private String username;
     private String password;
     private String role;
-    @OneToMany(fetch = FetchType.EAGER)
-    List<Todo> todoList;
+    @OneToMany
+    private List<Todo> todoList = new ArrayList<>();
 }

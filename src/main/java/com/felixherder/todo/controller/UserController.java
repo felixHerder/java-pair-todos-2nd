@@ -19,10 +19,10 @@ public class UserController {
     private final MyUserDetailsService myUserDetailsService;
 
     @GetMapping("/")
-    public ModelAndView getTodos(Model model, Authentication authentication){
-//        String username = authentication.getName();
-//        model.addAttribute("todos", myUserDetailsService.userRepo.findByUsername(username));
-        ModelAndView modelAndView = new ModelAndView("todo-list");
-        return modelAndView;
+    public String getTodos(Model model, Authentication authentication){
+        String username = authentication.getName();
+        model.addAttribute("todos", myUserDetailsService.userRepo.findByUsername(username));
+
+        return "todo-list";
     }
 }
